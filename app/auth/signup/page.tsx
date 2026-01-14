@@ -54,7 +54,7 @@ export default function SignupPage() {
       alert("Account created successfully!");
 
       // ✅ Redirect to login page
-      router.push("/login");
+      router.push("/auth/login");
     } catch (err: unknown) {
       if (err instanceof Error) {
         alert(err.message);
