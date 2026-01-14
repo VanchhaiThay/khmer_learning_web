@@ -15,7 +15,8 @@ export default function SignupPage() {
     email: "",
     password: "",
   });
-  const router = useRouter(); // Next.js router for navigation
+
+  const router = useRouter();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -23,12 +24,6 @@ export default function SignupPage() {
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    if (!form.password) {
-      alert("Password is required");
-      return;
-    }
-
     setLoading(true);
 
     try {
@@ -51,89 +46,109 @@ export default function SignupPage() {
         created_at: serverTimestamp(),
       });
 
-      alert("Account created successfully!");
-
-      // ✅ Redirect to login page
       router.push("/auth/login");
     } catch (err: unknown) {
-      if (err instanceof Error) {
-        alert(err.message);
-      } else {
-        alert("Unknown error occurred");
-      }
-    } finally {
+    if (err instanceof Error) {
+      alert(err.message);
+    } else {
+      alert("Signup failed");
+    }
+    }
+    finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-gradient-to-br from-blue-900 to-blue-600 px-4">
-      <form
-        onSubmit={handleSignup}
-        className="w-full max-w-md rounded-2xl bg-white p-8 shadow-2xl"
-      >
-        <h1 className="text-center text-2xl font-bold text-blue-900">
-          Create Account
+    <div className="flex min-h-screen items-center justify-center bg-linear-to-br from-blue-950 via-blue-900 to-indigo-900 px-4">
+      <div className="w-full max-w-md rounded-2xl bg-white p-8 shadow-xl">
+        <h1 className="mb-2 text-center text-3xl font-bold text-gray-900">
+          Create your account
         </h1>
-        <p className="mb-6 text-center text-gray-500">
-          Sign up to get started
+        <p className="mb-8 text-center text-gray-500">
+          Start learning with us today 🚀
         </p>
 
-        <div className="mb-4 grid grid-cols-2 gap-3">
-          <input
-            name="firstName"
-            value={form.firstName}
-            onChange={handleChange}
-            placeholder="First Name"
-            required
-            className="rounded-lg border bg-gray-100 px-4 py-2"
-          />
-          <input
-            name="lastName"
-            value={form.lastName}
-            onChange={handleChange}
-            placeholder="Last Name"
-            required
-            className="rounded-lg border bg-gray-100 px-4 py-2"
-          />
-        </div>
+        <form onSubmit={handleSignup} className="space-y-5">
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="mb-1 block text-sm font-medium text-gray-700">
+                First name
+              </label>
+              <input
+                name="firstName"
+                value={form.firstName}
+                onChange={handleChange}
+                required
+                className="w-full rounded-lg border border-gray-300 px-4 py-2 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-200"
+              />
+            </div>
 
-        <input
-          name="email"
-          type="email"
-          value={form.email}
-          onChange={handleChange}
-          placeholder="Email"
-          required
-          className="mb-4 w-full rounded-lg border bg-gray-100 px-4 py-2"
-        />
+            <div>
+              <label className="mb-1 block text-sm font-medium text-gray-700">
+                Last name
+              </label>
+              <input
+                name="lastName"
+                value={form.lastName}
+                onChange={handleChange}
+                required
+                className="w-full rounded-lg border border-gray-300 px-4 py-2 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-200"
+              />
+            </div>
+          </div>
 
-        <input
-          name="password"
-          type="password"
-          value={form.password}
-          onChange={handleChange}
-          placeholder="Password"
-          required
-          minLength={6}
-          className="mb-6 w-full rounded-lg border bg-gray-100 px-4 py-2"
-        />
+          <div>
+            <label className="mb-1 block text-sm font-medium text-gray-700">
+              Email address
+            </label>
+            <input
+              name="email"
+              type="email"
+              value={form.email}
+              onChange={handleChange}
+              required
+              className="w-full rounded-lg border border-gray-300 px-4 py-2 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-200"
+            />
+          </div>
 
-        <button
-          type="submit"
-          disabled={loading}
-          className="w-full rounded-lg bg-blue-900 py-3 font-bold text-white hover:bg-blue-800"
-        >
-          {loading ? "Creating..." : "Sign Up"}
-        </button>
+          <div>
+            <label className="mb-1 block text-sm font-medium text-gray-700">
+              Password
+            </label>
+            <input
+              name="password"
+              type="password"
+              minLength={6}
+              value={form.password}
+              onChange={handleChange}
+              required
+              className="w-full rounded-lg border border-gray-300 px-4 py-2 outline-none transition focus:border-blue-600 focus:ring-2 focus:ring-blue-200"
+            />
+            <p className="mt-1 text-xs text-gray-400">
+              Minimum 6 characters
+            </p>
+          </div>
 
-        <p className="mt-4 text-center text-sm">
+          <button
+            type="submit"
+            disabled={loading}
+            className="w-full rounded-lg bg-blue-900 py-3 font-semibold text-white transition hover:bg-blue-800 disabled:cursor-not-allowed disabled:opacity-70"
+          >
+            {loading ? "Creating account..." : "Create Account"}
+          </button>
+        </form>
+
+        <p className="mt-6 text-center text-sm text-gray-600">
           Already have an account?{" "}
-          <Link href="/auth/login" className="font-semibold text-blue-900">
-            Login
+          <Link
+            href="/auth/login"
+            className="font-semibold text-blue-900 hover:underline"
+          >
+            Sign in
           </Link>
         </p>
-      </form>
+      </div>
     </div>
   );
 }
