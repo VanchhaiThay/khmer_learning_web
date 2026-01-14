@@ -1,5 +1,3 @@
-"use client";
-
 import { useSearchParams } from "next/navigation";
 import Link from "next/link";
 import { FaArrowLeft } from "react-icons/fa";
@@ -26,7 +24,7 @@ export default function GradePage() {
   const subject = subjectsGrades[subjectKey] || subjectsGrades["other"];
 
   return (
-    <section className="min-h-screen bg-gradient-to-br from-[#0b1220] via-[#0e1628] to-[#0b1220] flex flex-col items-center py-24 px-4 md:px-8 text-white">
+    <section className="min-h-screen bg-linear-to-br from-[#0b1220] via-[#0e1628] to-[#0b1220] flex flex-col items-center py-24 px-4 md:px-8 text-white">
       <div className="w-full max-w-3xl text-center">
         <Link
           href="/class/current"

@@ -2,7 +2,7 @@
 
 import { useState, useMemo } from "react";
 import Link from "next/link";
-import { FaSearch, FaLanguage, FaCalculator, FaBook, FaLandmark, FaGlobeAsia, FaFlask, FaAtom, FaVial, FaDna, FaLaptopCode, FaBalanceScale, FaEllipsisH, FaCopy } from "react-icons/fa";
+import { FaSearch, FaLanguage, FaCalculator, FaBook, FaLandmark, FaGlobeAsia, FaFlask, FaAtom, FaVial, FaDna, FaLaptopCode, FaBalanceScale, FaCopy } from "react-icons/fa";
 
 const categories = [
   { title: "Khmer", slug: "khmer", icon: FaLanguage, description: "Learn Khmer reading, writing, and speaking skills.", lessons: 24, level: "Beginner – Advanced" },
